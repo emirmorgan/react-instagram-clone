@@ -1,15 +1,22 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  controlPassword,
+  updateInputStatus,
+} from "../redux/slices/designSlice";
 
 const Input = ({ label, name }) => {
+  const dispatch = useDispatch();
+
   const [isEmpty, setEmpty] = useState(true);
-  const [isHidden, setHidden] = useState(true);
+  const isHidden = useSelector((state) => state.design.isHidden);
 
   const changeHandle = (e) => {
     let checkValue = e.target.value.length;
 
-    if (checkValue > 0) return setEmpty(false);
-
-    return setEmpty(true);
+    if (checkValue > 0)
+      return dispatch(updateInputStatus(false)) && setEmpty(false);
+    return dispatch(updateInputStatus(true)) && setEmpty(true);
   };
 
   return (
@@ -40,8 +47,8 @@ const Input = ({ label, name }) => {
           {name == "password" && isEmpty === false ? (
             <div className="flex text-sm ml-2">
               <button
-                className="font-semibold border-none focus:outline-none active:opacity-70"
-                onClick={() => setHidden(!isHidden)}
+                className="font-semibold text-xs border-none focus:outline-none active:opacity-70"
+                onClick={() => dispatch(controlPassword())}
               >
                 {isHidden ? "Show" : "Hide"}
               </button>

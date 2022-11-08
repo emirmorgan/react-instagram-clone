@@ -1,11 +1,15 @@
 import { useEffect, useRef } from "react";
-
 import { useFormik } from "formik";
+import { useSelector } from "react-redux";
+
 import loginSchema from "../validation/loginSchema";
+
 import Input from "../components/Input";
 
 const Login = () => {
   const ref = useRef();
+
+  const isInputEmpty = useSelector((state) => state.design.isInputEmpty);
 
   const images = [
     "https://instagram.com/static/images/homepage/screenshots/screenshot1.png/fdfe239b7c9f.png",
@@ -28,11 +32,6 @@ const Login = () => {
     { text: "Locations", href: "./" },
     { text: "Instagram Lite", href: "./" },
     { text: "Contact Uploading & Non-Users", href: "./" },
-    { text: "Dance", href: "./" },
-    { text: "Food & Drink", href: "./" },
-    { text: "Home & Garden", href: "./" },
-    { text: "Music", href: "./" },
-    { text: "Visual Arts", href: "./" },
   ];
 
   useEffect(() => {
@@ -105,7 +104,14 @@ const Login = () => {
                     />
                     <Input label="Password" name="password" />
                     <div className="mx-10 my-2">
-                      <button className="w-full bg-sky-600 text-white font-semibold rounded text-sm leading-[18px] px-[9px] py-[5px] focus:outline-none">
+                      <button
+                        className={
+                          "w-full text-white font-semibold rounded text-sm leading-[18px] px-[9px] py-[5px] focus:outline-none " +
+                          (isInputEmpty
+                            ? "bg-sky-300 pointer-events-none"
+                            : "bg-sky-600")
+                        }
+                      >
                         Log In
                       </button>
                     </div>
@@ -154,7 +160,7 @@ const Login = () => {
       <footer className="w-full py-4">
         <div className="flex flex-col mb-[52px]">
           <div className="flex flex-col mt-6">
-            <ul className="flex flex-wrap justify-center gap-2 text-xs">
+            <ul className="flex flex-wrap justify-center gap-2 text-xs px-6">
               {footerItems.map((item) => (
                 <a href={item.href}>
                   <li className="text-gray-400">{item.text}</li>
