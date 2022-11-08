@@ -101,11 +101,11 @@ const Login = () => {
                   <div className="flex flex-col mt-6 w-full">
                     <Input
                       label="Phone number, username, or email"
-                      type="text"
+                      name="username"
                     />
-                    <Input label="Password" type="text" />
+                    <Input label="Password" name="password" />
                     <div className="mx-10 my-2">
-                      <button className="w-full bg-sky-600 text-white font-semibold rounded text-sm leading-[18px] px-[9px] py-[5px]">
+                      <button className="w-full bg-sky-600 text-white font-semibold rounded text-sm leading-[18px] px-[9px] py-[5px] focus:outline-none">
                         Log In
                       </button>
                     </div>
