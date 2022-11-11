@@ -1,10 +1,8 @@
 import { object, string } from "yup";
 
-const IF_BLANK = "You can't leave the input empty.";
-
 const loginSchema = object({
-  userName: string().required(IF_BLANK),
-  userPass: string().required(IF_BLANK),
+  userName: string().min(3).max(30).required(),
+  userPass: string().min(6).required(),
 });
 
 export default loginSchema;

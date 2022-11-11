@@ -19,11 +19,15 @@ const LoginGetApp = () => {
     <div className="w-full flex flex-col items-center">
       <p className="text-sm mx-[20px] my-[10px]">Get the app.</p>
       <div className="flex my-[10px]">
-        <a className="mr-2" href={AppStore.href}>
-          <img src={AppStore.src} alt={AppStore.alt} className="h-10" />
-        </a>
-        <a href={GooglePlay.href}>
+        <a className="mr-2" href={GooglePlay.href}>
           <img src={GooglePlay.src} alt={GooglePlay.alt} className="h-10" />
+        </a>
+        <a href={MicrosoftStore.href}>
+          <img
+            src={MicrosoftStore.src}
+            alt={MicrosoftStore.alt}
+            className="h-10"
+          />
         </a>
       </div>
     </div>

@@ -16,12 +16,12 @@ const loginRouteFooterItems = [
 
 const LoginFooter = () => {
   return (
-    <footer className="w-full py-4">
+    <footer className="w-full px-4">
       <div className="flex flex-col mb-[52px]">
         <div className="flex flex-col mt-6">
-          <ul className="flex flex-wrap justify-center gap-2 text-xs px-6">
-            {loginRouteFooterItems.map((item) => (
-              <a href={item.href}>
+          <ul className="flex flex-wrap justify-center gap-3 text-xs px-6">
+            {loginRouteFooterItems.map((item, id) => (
+              <a href={item.href} key={id}>
                 <li className="text-gray-400">{item.text}</li>
               </a>
             ))}
