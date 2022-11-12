@@ -5,15 +5,18 @@ import Input from "../Input";
 import LoginDivider from "./LoginDivider";
 
 import { AiFillFacebook } from "react-icons/ai";
+import { userLogin } from "../../firebase";
 
 const LoginForm = () => {
-  const handleSubmit = (values) => {};
+  const handleSubmit = async (values) => {
+    await userLogin(values.email, values.password);
+  };
 
   return (
     <Formik
       initialValues={{
-        userName: "",
-        userPass: "",
+        email: "",
+        password: "",
       }}
       validationSchema={loginSchema}
       onSubmit={handleSubmit}
@@ -24,10 +27,10 @@ const LoginForm = () => {
           <div className="flex flex-col mt-6 w-full">
             <Input
               label="Phone number, username, or email"
-              name="userName"
+              name="email"
               type="text"
             />
-            <Input label="Password" name="userPass" type="password" />
+            <Input label="Password" name="password" type="password" />
             <div className="mx-10 my-2">
               <button
                 type="submit"

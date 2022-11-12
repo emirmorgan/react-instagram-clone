@@ -1,12 +1,20 @@
 import { Form, Formik } from "formik";
 import { AiFillFacebook } from "react-icons/ai";
+import { userRegistration } from "../../firebase";
 import registerSchema from "../../validation/registerSchema";
 
 import Input from "../Input";
 import LoginDivider from "./LoginDivider";
 
 const RegisterForm = () => {
-  const handleSubmit = (values) => {};
+  const handleSubmit = async (values) => {
+    await userRegistration(
+      values.email,
+      values.fullname,
+      values.uname,
+      values.upass
+    );
+  };
 
   return (
     <Formik
