@@ -6,10 +6,14 @@ import LoginDivider from "./LoginDivider";
 
 import { AiFillFacebook } from "react-icons/ai";
 import { userLogin } from "../../firebase";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+
   const handleSubmit = async (values) => {
     await userLogin(values.email, values.password);
+    navigate("/");
   };
 
   return (

@@ -17,6 +17,7 @@ import {
   getDocs,
   getDoc,
 } from "firebase/firestore";
+import { Link, Navigate } from "react-router-dom";
 import { setUser } from "./utils/setUser";
 
 const firebaseConfig = {
@@ -46,7 +47,7 @@ onAuthStateChanged(auth, async (user) => {
 
     setUser(data);
   } else {
-    setUser(false);
+    setUser(null);
   }
 });
 
@@ -95,19 +96,19 @@ export const userRegistration = async (email, fullname, username, password) => {
 };
 
 export const userLogin = async (email, password) => {
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      console.log(userCredential);
-    })
-    .catch((err) => alert(err));
+  try {
+    return await signInWithEmailAndPassword(auth, email, password);
+  } catch (err) {
+    alert(err);
+  }
 };
 
-const logout = () => {
+export const logout = () => {
   signOut(auth)
     .then(() => {
-      alert("Successfully logged out.");
+      console.log("Successfully logged out.");
     })
     .catch((error) => {
-      alert("Couldn't sign out err is: " + error);
+      console.log("Couldn't sign out err is: " + error);
     });
 };
