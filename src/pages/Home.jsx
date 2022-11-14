@@ -1,11 +1,17 @@
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { logout } from "../firebase";
 
-const logoutHandle = () => {
-  logout();
-};
+import { logout } from "../firebase";
+import { setAuth } from "../redux/dataSlice";
 
 const Home = () => {
+  const dispatch = useDispatch();
+
+  const logoutHandle = () => {
+    dispatch(setAuth(false));
+    logout();
+  };
+
   return (
     <div>
       <Link to="/">

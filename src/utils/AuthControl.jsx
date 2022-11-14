@@ -1,21 +1,31 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { Navigate, Outlet } from "react-router-dom";
 
+import Loading from "../components/Loading";
+
 const AuthControl = () => {
-  const user = useSelector((state) => state.data.user);
-  const mounted = useRef(false);
+  const [isMounted, setMounted] = useState(false);
+  const isAuth = useSelector((state) => state.data.auth);
 
   useEffect(() => {
-    mounted.current = true;
-  }, [user]);
+    setMounted(true);
 
-  if (mounted.current === true) {
-    return user === null ? <Navigate to="/login" /> : <Outlet />;
-  } else {
-    return <h1>Loading</h1>;
-  }
+    return () => {
+      setMounted(false);
+    };
+  }, [isMounted]);
+
+  return isMounted === true ? (
+    isAuth === false ? (
+      <Navigate to="/login" />
+    ) : (
+      <Outlet />
+    )
+  ) : (
+    <Loading />
+  );
 };
 
 export default AuthControl;

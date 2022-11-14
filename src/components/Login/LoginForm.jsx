@@ -7,12 +7,16 @@ import LoginDivider from "./LoginDivider";
 import { AiFillFacebook } from "react-icons/ai";
 import { userLogin } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setAuth } from "../../redux/dataSlice";
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (values) => {
     await userLogin(values.email, values.password);
+    dispatch(setAuth(true));
     navigate("/");
   };
 

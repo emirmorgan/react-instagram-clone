@@ -17,7 +17,6 @@ import {
   getDocs,
   getDoc,
 } from "firebase/firestore";
-import { Link, Navigate } from "react-router-dom";
 import { setUser } from "./utils/setUser";
 
 const firebaseConfig = {
@@ -30,7 +29,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth();
+export const auth = getAuth(app);
 const db = getFirestore(app);
 
 onAuthStateChanged(auth, async (user) => {
