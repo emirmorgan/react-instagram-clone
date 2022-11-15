@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import RegisterForm from "../components/Login/RegisterForm";
-import LoginForm from "../components/Login/LoginForm";
-import LoginPhoneFrame from "../components/Login/LoginPhoneFrame";
-import LoginFooter from "../components/Login/LoginFooter";
-import LoginGetApp from "../components/Login/LoginGetApp";
+import RegisterForm from "../../components/Login/RegisterForm";
+import LoginForm from "../../components/Login/LoginForm";
+import LoginPhoneFrame from "../../components/Login/LoginPhoneFrame";
+import LoginFooter from "../../components/Login/LoginFooter";
+import LoginGetApp from "../../components/Login/LoginGetApp";
 
 const Login = () => {
   const [isRegisterVisible, setRegisterVisible] = useState(false);
