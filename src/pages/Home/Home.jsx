@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { logout } from "../../firebase";
 import { setAuth } from "../../redux/dataSlice";
 
@@ -17,7 +17,9 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [isTabActive, setTabActive] = useState(false);
+  const [isMenuActive, setMenuActive] = useState(false);
   const [tabType, setTabType] = useState("");
+
   const currentUser = useSelector((state) => state.data.user);
 
   if (currentUser === null) {
@@ -28,7 +30,13 @@ const Home = () => {
     if (tab !== null) {
       setTabActive((current) => !current);
       setTabType(tab);
+      setMenuActive(false);
     }
+  };
+
+  const navHandle = () => {
+    tabHandle(isTabActive ? tabType : null);
+    setMenuActive(false);
   };
 
   const logoutHandle = () => {
@@ -72,11 +80,7 @@ const Home = () => {
           </div>
           <div className="flex flex-col">
             <div className="flex">
-              <NavLink
-                to="/"
-                className="w-full text-black"
-                onClick={() => tabHandle(isTabActive ? tabType : null)}
-              >
+              <NavLink to="/" className="w-full text-black" onClick={navHandle}>
                 {({ isActive }) => (
                   <div className="flex w-full hover:bg-slate-50 group rounded-full p-3 my-2">
                     <div className="group-hover:scale-105 transition-all duration-150">
@@ -149,7 +153,7 @@ const Home = () => {
               <NavLink
                 to="explore"
                 className="w-full text-black"
-                onClick={() => tabHandle(isTabActive ? tabType : null)}
+                onClick={navHandle}
               >
                 {({ isActive }) => (
                   <div className="flex w-full hover:bg-slate-50 group rounded-full p-3 my-2">
@@ -185,7 +189,7 @@ const Home = () => {
               <NavLink
                 to="inbox"
                 className="w-full text-black"
-                onClick={() => tabHandle(isTabActive ? tabType : null)}
+                onClick={navHandle}
               >
                 {({ isActive }) => (
                   <div className="flex w-full hover:bg-slate-50 group rounded-full p-3 my-2">
@@ -262,7 +266,7 @@ const Home = () => {
               <NavLink
                 to="create"
                 className="w-full text-black"
-                onClick={() => tabHandle(isTabActive ? tabType : null)}
+                onClick={navHandle}
               >
                 {({ isActive }) => (
                   <div className="flex w-full hover:bg-slate-50 group rounded-full p-3 my-2">
@@ -291,7 +295,7 @@ const Home = () => {
               <NavLink
                 to="/profile"
                 className="w-full text-black"
-                onClick={() => tabHandle(isTabActive ? tabType : null)}
+                onClick={navHandle}
               >
                 {({ isActive }) => (
                   <div className="flex w-full hover:bg-slate-50 group rounded-full p-3 my-2">
@@ -321,34 +325,86 @@ const Home = () => {
             </div>
           </div>
           <div className="mt-auto">
-            <div className="flex">
-              <NavLink
-                to="more"
-                className="w-full text-black"
-                onClick={() => logoutHandle()}
+            <div className="flex relative">
+              <div
+                className="w-full text-black cursor-pointer"
+                type="button"
+                onClick={() => setMenuActive((current) => !current)}
               >
-                {({ isActive }) => (
-                  <div className="flex w-full hover:bg-slate-50 group rounded-full p-3 my-2">
-                    <div className="group-hover:scale-105 transition-all duration-150">
-                      <Icons name={isActive ? "menuActive" : "menu"} />
-                    </div>
-                    <div
+                <div className="flex w-full hover:bg-slate-50 group rounded-full p-3 my-2">
+                  <div className="group-hover:scale-105 transition-all duration-150">
+                    <Icons name={false ? "menuActive" : "menu"} />
+                  </div>
+                  <div
+                    className={
+                      "hidden items-center " + (isTabActive ? "" : "lg:flex")
+                    }
+                  >
+                    <span
                       className={
-                        "hidden items-center " + (isTabActive ? "" : "lg:flex")
+                        "pl-4 text-[15px] tracking-wide" +
+                        (false ? " font-semibold" : "")
                       }
                     >
-                      <span
-                        className={
-                          "pl-4 text-[15px] tracking-wide" +
-                          (isActive ? " font-semibold" : "")
-                        }
-                      >
-                        More
-                      </span>
-                    </div>
+                      More
+                    </span>
                   </div>
-                )}
-              </NavLink>
+                </div>
+              </div>
+              <div
+                class={
+                  "absolute bottom-16 w-[224px] bg-transparent divide-y divide-gray-100 z-10" +
+                  (isMenuActive ? "" : " hidden")
+                }
+              >
+                <div className="flex flex-col shadow-xl">
+                  <Link to="/">
+                    <div className="flex justify-between rounded-t py-2 px-4 bg-white hover:bg-gray-100 border-b border-gray-300">
+                      <div>
+                        <span className="text-black">Settings</span>
+                      </div>
+                      <div>
+                        <Icons name="settings" />
+                      </div>
+                    </div>
+                  </Link>
+                  <Link to="/">
+                    <div className="flex justify-between py-2 px-4 bg-white hover:bg-gray-100 border-b border-gray-300">
+                      <div>
+                        <span className="text-black">Saved</span>
+                      </div>
+                      <div>
+                        <Icons name="saved" />
+                      </div>
+                    </div>
+                  </Link>
+                  <Link to="/">
+                    <div className="flex justify-between rounded-b py-2 px-4 bg-white hover:bg-gray-100 border-b border-gray-300">
+                      <div>
+                        <span className="text-black">Report a problem</span>
+                      </div>
+                      <div>
+                        <Icons name="report" />
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+                <div className="flex flex-col mt-3 shadow-xl">
+                  <Link to="/">
+                    <div className="flex rounded-t py-2 px-4 bg-white hover:bg-gray-100 border-b border-gray-300">
+                      <span className="text-black">Switch accounts</span>
+                    </div>
+                  </Link>
+                  <Link to="/">
+                    <div
+                      className="flex rounded-b py-2 px-4 bg-white hover:bg-gray-100 border-gray-300"
+                      onClick={() => logoutHandle()}
+                    >
+                      <span className="text-black">Log out</span>
+                    </div>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
