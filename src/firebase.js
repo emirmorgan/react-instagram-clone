@@ -19,6 +19,9 @@ import {
 } from "firebase/firestore";
 import { setUser } from "./utils/setUser";
 
+//Assets
+import DefaultProfile from "./assets/defaultPhoto.jpg";
+
 const firebaseConfig = {
   apiKey: "",
   authDomain: "",
@@ -72,6 +75,7 @@ export const userRegistration = async (email, fullname, username, password) => {
           uid: uid,
           fullName: fullname,
           username: username,
+          photoSrc: DefaultProfile,
           followers: [],
           following: [],
           notifications: [],
