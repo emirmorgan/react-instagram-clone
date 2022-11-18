@@ -431,8 +431,8 @@ const Home = () => {
         </div>
         <div
           className={
-            "absolute w-[244px] h-screen top-0 left-[73px] bg-white shadow-[6px_0_24px_-12px_rgba(0,0,0,0.15)]" +
-            (isTabActive ? "" : "lg:left-[244px] hidden")
+            "absolute w-[286px] h-screen top-0 left-[73px] rounded-r-3xl bg-white shadow-[6px_0_24px_-12px_rgba(0,0,0,0.15)]" +
+            (isTabActive ? "" : " lg:left-[244px] hidden")
           }
         >
           {tabType === "search" ? <SearchContent /> : <NotificationsContent />}
