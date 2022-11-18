@@ -6,19 +6,20 @@ import LoginDivider from "./LoginDivider";
 
 import { AiFillFacebook } from "react-icons/ai";
 import { userLogin } from "../../firebase";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setAuth } from "../../redux/dataSlice";
+
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 const LoginForm = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const user = useSelector((state) => state.data.user);
 
   const handleSubmit = async (values) => {
     await userLogin(values.email, values.password);
-    dispatch(setAuth(true));
-    navigate("/");
   };
+
+  if (user) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <Formik
@@ -30,7 +31,7 @@ const LoginForm = () => {
       onSubmit={handleSubmit}
       className="flex flex-col items-center"
     >
-      {(isSubmitting) => (
+      {(formControl) => (
         <Form className="flex flex-col items-center">
           <div className="flex flex-col mt-6 w-full">
             <Input
@@ -42,7 +43,13 @@ const LoginForm = () => {
             <div className="mx-10 my-2">
               <button
                 type="submit"
-                disabled={!(isSubmitting.isValid && isSubmitting.dirty)}
+                disabled={
+                  !(
+                    formControl.isValid &&
+                    formControl.dirty &&
+                    !formControl.isSubmitting
+                  )
+                }
                 className="w-full text-white rounded text-sm leading-[18px] px-[9px] py-[5px] focus:outline-none bg-[#0095f6] disabled:opacity-30"
               >
                 Log in

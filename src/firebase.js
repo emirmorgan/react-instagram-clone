@@ -32,7 +32,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
+const auth = getAuth(app);
 const db = getFirestore(app);
 
 onAuthStateChanged(auth, async (user) => {
@@ -49,7 +49,7 @@ onAuthStateChanged(auth, async (user) => {
 
     setUser(data);
   } else {
-    setUser(null);
+    setUser(false);
   }
 });
 
@@ -102,16 +102,14 @@ export const userLogin = async (email, password) => {
   try {
     return await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
-    alert(err);
+    console.log(err.code);
   }
 };
 
-export const logout = () => {
-  signOut(auth)
-    .then(() => {
-      console.log("Successfully logged out.");
-    })
-    .catch((error) => {
-      console.log("Couldn't sign out err is: " + error);
-    });
+export const logout = async () => {
+  try {
+    await signOut(auth);
+  } catch (err) {
+    console.log("Couldn't sign out err is: " + err.code);
+  }
 };

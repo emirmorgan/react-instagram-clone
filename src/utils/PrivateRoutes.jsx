@@ -5,9 +5,9 @@ import { Navigate, Outlet } from "react-router-dom";
 
 import Loading from "../components/Loading";
 
-const AuthControl = () => {
+const PrivateRoutes = () => {
   const [isMounted, setMounted] = useState(false);
-  const isAuth = useSelector((state) => state.data.auth);
+  const user = useSelector((state) => state.data.user);
 
   useEffect(() => {
     setMounted(true);
@@ -18,7 +18,7 @@ const AuthControl = () => {
   }, [isMounted]);
 
   return isMounted === true ? (
-    isAuth === false ? (
+    !user ? (
       <Navigate to="/login" />
     ) : (
       <Outlet />
@@ -28,4 +28,4 @@ const AuthControl = () => {
   );
 };
 
-export default AuthControl;
+export default PrivateRoutes;

@@ -1,8 +1,7 @@
 import { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { logout } from "../../firebase";
-import { setAuth } from "../../redux/dataSlice";
 
 //Assets
 import Icons from "../../assets/Icons";
@@ -15,7 +14,6 @@ import Loading from "../../components/Loading";
 const Home = () => {
   const currentUser = useSelector((state) => state.data.user);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const modalRef = useRef();
 
@@ -42,7 +40,6 @@ const Home = () => {
   };
 
   const logoutHandle = () => {
-    dispatch(setAuth(false));
     logout();
     navigate("/login");
   };

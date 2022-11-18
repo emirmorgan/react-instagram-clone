@@ -1,5 +1,6 @@
 import { Form, Formik } from "formik";
 import { AiFillFacebook } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 import { userRegistration } from "../../firebase";
 import registerSchema from "../../validation/registerSchema";
 
@@ -7,13 +8,19 @@ import Input from "../Input";
 import LoginDivider from "./LoginDivider";
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
+
   const handleSubmit = async (values) => {
-    await userRegistration(
+    const response = await userRegistration(
       values.email,
       values.fullname,
       values.uname,
       values.upass
     );
+
+    if (response) {
+      navigate("/");
+    }
   };
 
   return (
@@ -27,7 +34,7 @@ const RegisterForm = () => {
       validationSchema={registerSchema}
       onSubmit={handleSubmit}
     >
-      {(isSubmitting) => (
+      {(formControl) => (
         <>
           <div className="w-full">
             <div className="mx-10">
@@ -98,7 +105,13 @@ const RegisterForm = () => {
               <div className="mx-10 my-2">
                 <button
                   type="submit"
-                  disabled={!(isSubmitting.isValid && isSubmitting.dirty)}
+                  disabled={
+                    !(
+                      formControl.isValid &&
+                      formControl.dirty &&
+                      !formControl.isSubmitting
+                    )
+                  }
                   className="w-full text-white rounded text-sm leading-[18px] px-[9px] py-[5px] focus:outline-none bg-[#0095f6] disabled:opacity-30"
                 >
                   Sign up

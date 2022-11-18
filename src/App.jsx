@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
 //Utils
-import AuthControl from "./utils/AuthControl";
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 //Pages
 import Login from "./pages/Login/Login";
@@ -15,7 +15,7 @@ import Tagged from "./pages/Home/Profile/Tagged";
 function App() {
   return (
     <Routes>
-      <Route element={<AuthControl />}>
+      <Route element={<PrivateRoutes />}>
         <Route element={<Home />} path="/" exact>
           <Route element={<Explore />} path="explore" exact />
           <Route element={<Inbox />} path="inbox" exact />
