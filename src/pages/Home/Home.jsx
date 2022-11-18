@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { logout } from "../../firebase";
@@ -13,14 +13,16 @@ import SearchContent from "../../components/Home/SearchContent";
 import Loading from "../../components/Loading";
 
 const Home = () => {
+  const currentUser = useSelector((state) => state.data.user);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const modalRef = useRef();
 
+  const [tabType, setTabType] = useState("");
   const [isTabActive, setTabActive] = useState(false);
   const [isMenuActive, setMenuActive] = useState(false);
-  const [tabType, setTabType] = useState("");
-
-  const currentUser = useSelector((state) => state.data.user);
+  const [isModalActive, setModalActive] = useState(false);
 
   if (currentUser === null) {
     return <Loading />;
@@ -86,7 +88,9 @@ const Home = () => {
                     <div className="group-hover:scale-105 transition-all duration-150">
                       <Icons
                         name={
-                          isActive && isTabActive === false
+                          isActive &&
+                          isTabActive === false &&
+                          isModalActive === false
                             ? "homeActive"
                             : "home"
                         }
@@ -100,7 +104,11 @@ const Home = () => {
                       <span
                         className={
                           "pl-4 text-[15px] tracking-wide" +
-                          (isActive ? " font-semibold" : " ")
+                          (isActive &&
+                          isTabActive === false &&
+                          isModalActive === false
+                            ? " font-semibold"
+                            : " ")
                         }
                       >
                         Home
@@ -124,7 +132,9 @@ const Home = () => {
                   <div className="group-hover:scale-105 transition-all duration-150">
                     <Icons
                       name={
-                        isTabActive && tabType === "search"
+                        isTabActive &&
+                        tabType === "search" &&
+                        isModalActive === false
                           ? "searchActive"
                           : "search"
                       }
@@ -138,7 +148,9 @@ const Home = () => {
                     <span
                       className={
                         "pl-4 text-[15px] tracking-wide" +
-                        (isTabActive && tabType === "search"
+                        (isTabActive &&
+                        tabType === "search" &&
+                        isModalActive === false
                           ? " font-semibold"
                           : "")
                       }
@@ -160,7 +172,9 @@ const Home = () => {
                     <div className="group-hover:scale-105 transition-all duration-150">
                       <Icons
                         name={
-                          isActive && isTabActive === false
+                          isActive &&
+                          isTabActive === false &&
+                          isModalActive === false
                             ? "exploreActive"
                             : "explore"
                         }
@@ -175,7 +189,9 @@ const Home = () => {
                       <span
                         className={
                           "pl-4 text-[15px] tracking-wide" +
-                          (isActive ? " font-semibold" : "")
+                          (isActive && isModalActive === false
+                            ? " font-semibold"
+                            : "")
                         }
                       >
                         Explore
@@ -196,7 +212,9 @@ const Home = () => {
                     <div className="group-hover:scale-105 transition-all duration-150">
                       <Icons
                         name={
-                          isActive && isTabActive === false
+                          isActive &&
+                          isTabActive === false &&
+                          isModalActive === false
                             ? "messagesActive"
                             : "messages"
                         }
@@ -211,7 +229,9 @@ const Home = () => {
                       <span
                         className={
                           "pl-4 text-[15px] tracking-wide" +
-                          (isActive ? " font-semibold" : "")
+                          (isActive && isModalActive === false
+                            ? " font-semibold"
+                            : "")
                         }
                       >
                         Messages
@@ -237,7 +257,9 @@ const Home = () => {
                   <div className="group-hover:scale-105 transition-all duration-150">
                     <Icons
                       name={
-                        isTabActive && tabType === "notifications"
+                        isTabActive &&
+                        tabType === "notifications" &&
+                        isModalActive === false
                           ? "notificationsActive"
                           : "notifications"
                       }
@@ -263,33 +285,33 @@ const Home = () => {
               </div>
             </div>
             <div className="flex">
-              <NavLink
-                to="create"
-                className="w-full text-black"
-                onClick={navHandle}
+              <div
+                className="w-full text-black cursor-pointer"
+                onClick={() => {
+                  setModalActive((current) => !current);
+                  setMenuActive(false);
+                }}
               >
-                {({ isActive }) => (
-                  <div className="flex w-full hover:bg-slate-50 group rounded-full p-3 my-2">
-                    <div className="group-hover:scale-105 transition-all duration-150">
-                      <Icons name={isActive ? "createActive" : "create"} />
-                    </div>
-                    <div
+                <div className="flex w-full hover:bg-slate-50 group rounded-full p-3 my-2">
+                  <div className="group-hover:scale-105 transition-all duration-150">
+                    <Icons name={isModalActive ? "createActive" : "create"} />
+                  </div>
+                  <div
+                    className={
+                      "hidden items-center " + (isTabActive ? "" : "lg:flex")
+                    }
+                  >
+                    <span
                       className={
-                        "hidden items-center " + (isTabActive ? "" : "lg:flex")
+                        "pl-4 text-[15px] tracking-wide" +
+                        (isModalActive ? " font-semibold" : "")
                       }
                     >
-                      <span
-                        className={
-                          "pl-4 text-[15px] tracking-wide" +
-                          (isActive ? " font-semibold" : "")
-                        }
-                      >
-                        Create
-                      </span>
-                    </div>
+                      Create
+                    </span>
                   </div>
-                )}
-              </NavLink>
+                </div>
+              </div>
             </div>
             <div className="flex">
               <NavLink
@@ -313,7 +335,9 @@ const Home = () => {
                       <span
                         className={
                           "pl-4 text-[15px] tracking-wide" +
-                          (isActive ? " font-semibold" : "")
+                          (isActive && isModalActive === false
+                            ? " font-semibold"
+                            : "")
                         }
                       >
                         Profile
@@ -352,7 +376,7 @@ const Home = () => {
                 </div>
               </div>
               <div
-                class={
+                className={
                   "absolute bottom-16 w-[224px] bg-transparent divide-y divide-gray-100 z-10" +
                   (isMenuActive ? "" : " hidden")
                 }
@@ -420,6 +444,38 @@ const Home = () => {
       <main className="w-full ml-[73px] lg:ml-[244px]">
         <Outlet />
       </main>
+      <div
+        className={
+          isModalActive
+            ? "bg-black bg-opacity-60 absolute w-full h-full z-50"
+            : "hidden"
+        }
+        onClick={(e) =>
+          !modalRef.current.contains(e.target) ? setModalActive(false) : null
+        }
+      >
+        <div className="flex items-center justify-center h-full">
+          <div
+            className="flex flex-col bg-white rounded-lg w-5/6 md:w-3/6 min-w-[300px] max-w-[650px] h-1/2 lg:h-5/6 min-h-[400px] max-h-[700px]"
+            ref={modalRef}
+          >
+            <div className="flex items-center justify-center border-b p-2">
+              <h1 className="text-base font-semibold">Create new post</h1>
+            </div>
+            <div className="flex flex-col items-center justify-center h-full p-6">
+              <Icons name="photos" />
+              <div className="mt-2">
+                <h2>Drag photos and videos here</h2>
+              </div>
+              <div className="mt-6">
+                <button className="rounded bg-[#0095f6] text-white text-base leading-[18px] px-[9px] py-[5px] active:opacity-90 focus:outline-none">
+                  Select from computer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
