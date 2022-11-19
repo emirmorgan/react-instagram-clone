@@ -5,18 +5,20 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 
 //Pages
 import Login from "./pages/Login/Login";
-import Home from "./pages/Home/Home";
-import Explore from "./pages/Home/Explore";
-import Inbox from "./pages/Home/Inbox";
-import Profile from "./pages/Home/Profile";
-import Saved from "./pages/Home/Profile/Saved";
-import Tagged from "./pages/Home/Profile/Tagged";
+import Home from "./pages/Home";
+import Explore from "./pages/Explore";
+import Inbox from "./pages/Inbox";
+import Profile from "./pages/Profile";
+import Saved from "./pages/Profile/Saved";
+import Tagged from "./pages/Profile/Tagged";
+import Layout from "./pages/Layout";
 
 function App() {
   return (
     <Routes>
       <Route element={<PrivateRoutes />}>
-        <Route element={<Home />} path="/" exact>
+        <Route element={<Layout />} path="/" exact>
+          <Route element={<Home />} path="" exact />
           <Route element={<Explore />} path="explore" exact />
           <Route element={<Inbox />} path="inbox" exact />
           <Route element={<Profile />} path="profile" exact>

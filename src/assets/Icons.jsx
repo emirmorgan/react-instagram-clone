@@ -598,6 +598,24 @@ const SettingsIcon = ({ size }) => {
   );
 };
 
+const MoreIcon = ({ size }) => {
+  return (
+    <svg
+      aria-label="More options"
+      color="#262626"
+      fill="#262626"
+      height={size}
+      width={size}
+      role="img"
+      viewBox="0 0 24 24"
+    >
+      <circle cx="12" cy="12" r="1.5"></circle>
+      <circle cx="6" cy="12" r="1.5"></circle>
+      <circle cx="18" cy="12" r="1.5"></circle>
+    </svg>
+  );
+};
+
 const ReportIcon = ({ size }) => {
   return (
     <svg
@@ -640,6 +658,7 @@ const Icons = ({ name, size = 24 }) => {
     settings: SettingsIcon,
     report: ReportIcon,
     photos: PhotosIcon,
+    more: MoreIcon,
   };
 
   const Component = icons[name];

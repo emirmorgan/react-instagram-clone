@@ -1,17 +1,17 @@
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { logout } from "../../firebase";
+import { logout } from "../firebase";
 
 //Assets
-import Icons from "../../assets/Icons";
+import Icons from "../assets/Icons";
 
 //Components
-import NotificationsContent from "../../components/Home/NotificationsContent";
-import SearchContent from "../../components/Home/SearchContent";
-import Loading from "../../components/Loading";
+import NotificationsContent from "../components/Layout/NotificationsContent";
+import SearchContent from "../components/Layout/SearchContent";
+import Loading from "../components/Loading";
 
-const Home = () => {
+const Layout = () => {
   const currentUser = useSelector((state) => state.data.user);
 
   const navigate = useNavigate();
@@ -444,7 +444,7 @@ const Home = () => {
       <div
         className={
           isModalActive
-            ? "bg-black bg-opacity-60 absolute w-full h-full z-50"
+            ? "bg-black bg-opacity-60 fixed w-full h-full z-50"
             : "hidden"
         }
         onClick={(e) =>
@@ -477,4 +477,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Layout;
