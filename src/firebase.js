@@ -83,7 +83,26 @@ export const userRegistration = async (email, fullname, username, password) => {
           bio: "",
           phoneNumber: "",
           gender: "",
-          posts: 0,
+          posts: [
+            {
+              id: 1,
+              imgSrc: "https://images8.alphacoders.com/547/547511.jpg",
+              desc: "Cosmic Blacksmith",
+              likes: 999,
+            },
+            {
+              id: 2,
+              imgSrc: "https://images7.alphacoders.com/553/553260.jpg",
+              desc: "Bio Hand",
+              likes: 888,
+            },
+            {
+              id: 3,
+              imgSrc: "https://images4.alphacoders.com/562/562252.jpg",
+              desc: "Reborn",
+              likes: 777,
+            },
+          ],
         });
 
         await updateProfile(auth.currentUser, {
