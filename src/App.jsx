@@ -12,6 +12,7 @@ import Profile from "./pages/Profile";
 import Saved from "./pages/Profile/Saved";
 import Tagged from "./pages/Profile/Tagged";
 import Layout from "./pages/Layout";
+import Posts from "./pages/Profile/Posts";
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
           <Route element={<Home />} path="" exact />
           <Route element={<Explore />} path="explore" exact />
           <Route element={<Inbox />} path="inbox" exact />
-          <Route element={<Profile />} path="profile" exact>
+          <Route element={<Profile />} path=":username" exact>
+            <Route element={<Posts />} path="" exact />
             <Route element={<Saved />} path="saved" exact />
             <Route element={<Tagged />} path="tagged" exact />
           </Route>

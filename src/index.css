@@ -48,9 +48,6 @@ button {
   font-family: inherit;
   cursor: pointer;
 }
-button:hover {
-  border-color: #646cff;
-}
 
 @media (prefers-color-scheme: light) {
   :root {

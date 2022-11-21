@@ -7,8 +7,8 @@ const Inbox = () => {
   return (
     <div className="page_wrapper w-full h-full">
       <div className="flex justify-center items-stretch h-full">
-        <div className="flex bg-white rounded border w-[350px] md:w-full max-w-[935px]">
-          <div className="flex flex-col w-[350px] min-w-[350px] border-r">
+        <div className="flex bg-white rounded border w-full md:w-full max-w-[935px]">
+          <div className="flex flex-col w-full sm:min-w-[350px] border-r">
             <div className="flex items-center justify-center h-[60px] border-b px-5">
               <div className="flex items-center cursor-pointer">
                 <span className="font-semibold">{user.username}</span>

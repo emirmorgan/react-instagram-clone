@@ -43,13 +43,13 @@ const Posts = () => {
               />
             </div>
             <div className="flex px-1 pb-[6px] mt-1">
-              <button className="p-2 hover:opacity-70">
+              <button className="p-2 bg-transparent hover:opacity-70">
                 <Icons name="notifications" />
               </button>
-              <button className="p-2 hover:opacity-70">
+              <button className="p-2 bg-transparent hover:opacity-70">
                 <Icons name="messages" />
               </button>
-              <button className="p-2 hover:opacity-70 ml-auto">
+              <button className="p-2 bg-transparent hover:opacity-70 ml-auto">
                 <Icons name="saved" />
               </button>
             </div>

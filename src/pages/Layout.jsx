@@ -45,10 +45,10 @@ const Layout = () => {
   };
 
   return (
-    <div className="flex w-full">
+    <div className="flex w-full overflow-hidden">
       <aside
         className={
-          "fixed bg-white h-screen w-[73px] border-r transition-[width] duration-250 select-none " +
+          "fixed z-[50] bg-white h-screen w-[73px] border-r transition-[width] duration-250 select-none " +
           (isTabActive ? "" : "lg:w-[244px]")
         }
       >
@@ -312,7 +312,7 @@ const Layout = () => {
             </div>
             <div className="flex">
               <NavLink
-                to="/profile"
+                to={`/${currentUser.username}`}
                 className="w-full text-black"
                 onClick={navHandle}
               >
@@ -374,7 +374,7 @@ const Layout = () => {
               </div>
               <div
                 className={
-                  "absolute bottom-16 w-[224px] bg-transparent divide-y divide-gray-100 z-10" +
+                  "absolute bottom-16 w-[224px] bg-transparent divide-y divide-gray-100" +
                   (isMenuActive ? "" : " hidden")
                 }
               >
@@ -444,7 +444,7 @@ const Layout = () => {
       <div
         className={
           isModalActive
-            ? "bg-black bg-opacity-60 fixed w-full h-full z-50"
+            ? "bg-black bg-opacity-60 fixed z-[60] w-full h-full"
             : "hidden"
         }
         onClick={(e) =>

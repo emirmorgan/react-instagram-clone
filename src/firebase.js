@@ -80,7 +80,7 @@ export const userRegistration = async (email, fullname, username, password) => {
           following: [],
           notifications: [],
           website: "",
-          bio: "",
+          bio: "This is my bio!",
           phoneNumber: "",
           gender: "",
           posts: [
