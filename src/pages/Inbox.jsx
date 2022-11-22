@@ -117,7 +117,6 @@ const Inbox = () => {
           <div className="hidden md:flex flex-col items-center justify-center h-full w-full">
             <svg
               aria-label="Direct"
-              class="_ab6-"
               color="#262626"
               fill="#262626"
               height="96"
@@ -131,15 +130,15 @@ const Inbox = () => {
                 fill="none"
                 r="47"
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 stroke-width="2"
               ></circle>
               <line
                 fill="none"
                 stroke="currentColor"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 x1="69.286"
                 x2="41.447"
                 y1="33.21"
@@ -149,8 +148,8 @@ const Inbox = () => {
                 fill="none"
                 points="47.254 73.123 71.376 31.998 24.546 32.002 41.448 48.805 47.254 73.123"
                 stroke="currentColor"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinejoin="round"
+                strokeWidth="2"
               ></polygon>
             </svg>
             <span className="mt-4 text-gray-500 text-xl">Your messages</span>

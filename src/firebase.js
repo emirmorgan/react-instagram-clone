@@ -16,6 +16,7 @@ import {
   where,
   getDocs,
   getDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { setUser } from "./utils/setUser";
 
@@ -52,6 +53,16 @@ onAuthStateChanged(auth, async (user) => {
     setUser(false);
   }
 });
+
+export const updateUser = async (user, imageSrc, fullname, biography) => {
+  const userDocRef = doc(db, "users", user.uid);
+
+  await updateDoc(userDocRef, {
+    photoSrc: imageSrc,
+    fullName: fullname,
+    bio: biography,
+  });
+};
 
 export const userRegistration = async (email, fullname, username, password) => {
   const response = await getDocs(
