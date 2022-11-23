@@ -25,12 +25,12 @@ import { setUser } from "./utils/setUser";
 import DefaultProfile from "./assets/defaultPhoto.jpg";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_APP_ID,
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
@@ -132,7 +132,7 @@ export const userRegistration = async (email, fullname, username, password) => {
 
         return response.user;
       } catch (err) {
-        console.log("Error: " + err);
+        alert("Error: " + err);
       }
     }
   }
@@ -142,7 +142,7 @@ export const userLogin = async (email, password) => {
   try {
     return await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
-    console.log(err.code);
+    alert(err.code);
   }
 };
 
@@ -150,6 +150,6 @@ export const logout = async () => {
   try {
     await signOut(auth);
   } catch (err) {
-    console.log("Couldn't sign out err is: " + err.code);
+    alert("Couldn't sign out err is: " + err.code);
   }
 };
