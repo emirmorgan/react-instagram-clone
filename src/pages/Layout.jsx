@@ -1,7 +1,9 @@
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+
 import { createPost, logout } from "../firebase";
+import { addPost } from "../redux/dataSlice";
 
 //Assets
 import Icons from "../assets/Icons";
@@ -10,7 +12,6 @@ import Icons from "../assets/Icons";
 import NotificationsContent from "../components/Layout/NotificationsContent";
 import SearchContent from "../components/Layout/SearchContent";
 import Loading from "../components/Loading";
-import { addPost } from "../redux/dataSlice";
 
 const Layout = () => {
   const currentUser = useSelector((state) => state.data.user);
