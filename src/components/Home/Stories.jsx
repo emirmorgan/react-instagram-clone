@@ -1,7 +1,5 @@
 import { useSelector } from "react-redux";
 
-const availableStories = [{}];
-
 const Stories = () => {
   const user = useSelector((state) => state.data.user);
 
