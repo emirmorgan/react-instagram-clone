@@ -21,9 +21,6 @@ import {
 } from "firebase/firestore";
 import { setUser } from "./utils/setUser";
 
-//Assets
-import DefaultProfile from "./assets/defaultPhoto.jpg";
-
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
   authDomain: import.meta.env.VITE_AUTH_DOMAIN,
@@ -99,7 +96,8 @@ export const userRegistration = async (email, fullname, username, password) => {
           uid: uid,
           fullName: fullname,
           username: username,
-          photoSrc: DefaultProfile,
+          photoSrc:
+            "https://instagram.faep6-1.fna.fbcdn.net/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?efg=eyJybWQiOiJpZ19hbmRyb2lkX21vYmlsZV9uZXR3b3JrX3N0YWNrX3F1aWNfaGFwcHlfZXllYmFsbHM6dGlnb25fbW5zIn0&_nc_ad=z-m&_nc_ht=instagram.faep6-1.fna.fbcdn.net&_nc_cat=1&_nc_ohc=fvI0qZTT6G4AX8Xgrhc&edm=AL4D0a4BAAAA&ccb=7-5&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2-ccb7-5&oh=00_AfBEzBXU2f9pDrLe2A58OH0OQHWf0ndZxLWJOSCYnsuQoA&oe=6382C80F&_nc_sid=712cc3",
           followers: [],
           following: [],
           notifications: [],
