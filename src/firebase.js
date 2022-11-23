@@ -17,6 +17,7 @@ import {
   getDocs,
   getDoc,
   updateDoc,
+  arrayUnion,
 } from "firebase/firestore";
 import { setUser } from "./utils/setUser";
 
@@ -24,12 +25,12 @@ import { setUser } from "./utils/setUser";
 import DefaultProfile from "./assets/defaultPhoto.jpg";
 
 const firebaseConfig = {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: "",
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
@@ -61,6 +62,18 @@ export const updateUser = async (user, imageSrc, fullname, biography) => {
     photoSrc: imageSrc,
     fullName: fullname,
     bio: biography,
+  });
+};
+
+export const createPost = async (user, imageSrc, desc, likes) => {
+  const userDocRef = doc(db, "users", user.uid);
+
+  await updateDoc(userDocRef, {
+    posts: arrayUnion({
+      imgSrc: imageSrc,
+      desc: desc,
+      likes: likes,
+    }),
   });
 };
 
@@ -96,19 +109,16 @@ export const userRegistration = async (email, fullname, username, password) => {
           gender: "",
           posts: [
             {
-              id: 1,
               imgSrc: "https://images8.alphacoders.com/547/547511.jpg",
               desc: "Cosmic Blacksmith",
               likes: 999,
             },
             {
-              id: 2,
               imgSrc: "https://images7.alphacoders.com/553/553260.jpg",
               desc: "Bio Hand",
               likes: 888,
             },
             {
-              id: 3,
               imgSrc: "https://images4.alphacoders.com/562/562252.jpg",
               desc: "Reborn",
               likes: 777,

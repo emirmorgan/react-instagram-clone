@@ -38,14 +38,14 @@ const InstagramTextIcon = () => {
   );
 };
 
-const PhotosIcon = () => {
+const PhotosIcon = ({ size }) => {
   return (
     <svg
       aria-label="Icon to represent media such as images or videos"
       color="#262626"
       fill="#262626"
-      height="77"
-      width="96"
+      height={size}
+      width={size}
       role="img"
       viewBox="0 0 97.6 77.3"
     >

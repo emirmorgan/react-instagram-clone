@@ -10,8 +10,11 @@ const Posts = () => {
       {user.posts
         .slice(0)
         .reverse()
-        .map((post) => (
-          <div className="flex flex-col bg-white rounded-lg border mb-3">
+        .map((post, id) => (
+          <div
+            key={id}
+            className="flex flex-col bg-white rounded-lg border mb-3"
+          >
             <div className="flex my-2 ml-3 mr-1">
               <div className="flex cursor-pointer items-center">
                 <div className="flex flex-col items-center">

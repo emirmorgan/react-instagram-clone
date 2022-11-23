@@ -24,8 +24,20 @@ export const dataSlice = createSlice({
 
       state.user = { ...state.user, photoSrc, fullName, bio };
     },
+    addPost: (state, action) => {
+      const posts = [
+        ...state.user.posts,
+        {
+          imgSrc: action.payload.postImage,
+          desc: action.payload.postDesc,
+          likes: action.payload.postLikes,
+        },
+      ];
+
+      state.user = { ...state.user, posts };
+    },
   },
 });
 
-export const { setTheUser, updateTheUser } = dataSlice.actions;
+export const { setTheUser, updateTheUser, addPost } = dataSlice.actions;
 export default dataSlice.reducer;

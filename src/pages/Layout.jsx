@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { logout } from "../firebase";
+import { createPost, logout } from "../firebase";
 
 //Assets
 import Icons from "../assets/Icons";
@@ -10,10 +10,12 @@ import Icons from "../assets/Icons";
 import NotificationsContent from "../components/Layout/NotificationsContent";
 import SearchContent from "../components/Layout/SearchContent";
 import Loading from "../components/Loading";
+import { addPost } from "../redux/dataSlice";
 
 const Layout = () => {
   const currentUser = useSelector((state) => state.data.user);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const modalRef = useRef();
 
@@ -22,9 +24,21 @@ const Layout = () => {
   const [isMenuActive, setMenuActive] = useState(false);
   const [isModalActive, setModalActive] = useState(false);
 
+  const [postImage, setPostImage] = useState("");
+  const [postDesc, setPostDesc] = useState("");
+
   if (currentUser === null) {
     return <Loading />;
   }
+
+  const postHandle = (e) => {
+    e.preventDefault();
+
+    const postLikes = Math.floor(Math.random() * 1000);
+
+    createPost(currentUser, postImage, postDesc, postLikes);
+    dispatch(addPost({ postImage, postDesc, postLikes }));
+  };
 
   const tabHandle = (tab) => {
     if (tab !== null) {
@@ -453,22 +467,57 @@ const Layout = () => {
       >
         <div className="flex items-center justify-center h-full">
           <div
-            className="flex flex-col bg-white rounded-lg w-5/6 md:w-3/6 min-w-[300px] max-w-[650px] h-1/2 lg:h-5/6 min-h-[400px] max-h-[700px]"
+            className="flex flex-col bg-white rounded-lg w-5/6 md:w-3/6 min-w-[300px] max-w-[600px] h-1/2 lg:h-5/6 min-h-[400px] max-h-[550px]"
             ref={modalRef}
           >
             <div className="flex items-center justify-center border-b p-2">
               <h1 className="text-base font-semibold">Create new post</h1>
             </div>
-            <div className="flex flex-col items-center justify-center h-full p-6">
-              <Icons name="photos" />
-              <div className="mt-2">
-                <h2>Drag photos and videos here</h2>
+            <div className="flex flex-col justify-evenly items-center h-full px-6 py-2">
+              <div className="">
+                <Icons name="photos" size="128" />
               </div>
-              <div className="mt-6">
-                <button className="rounded bg-[#0095f6] text-white text-base leading-[18px] px-[9px] py-[5px] active:opacity-90 focus:outline-none">
-                  Select from computer
-                </button>
-              </div>
+              <form
+                id="post-form"
+                className="flex flex-col w-5/6 gap-5 mb-3"
+                onSubmit={postHandle}
+              >
+                <div className="flex flex-col gap-1">
+                  <label>Post Image Link</label>
+                  <input
+                    type="text"
+                    placeholder=".jpg or .png file link"
+                    className="border border-gray-400 rounded-lg w-full px-2 focus:outline-none"
+                    value={postImage}
+                    onChange={(e) => setPostImage(e.target.value)}
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label>Post Description</label>
+                  <input
+                    type="text"
+                    placeholder="No comment"
+                    className="border border-gray-400 rounded-lg w-full px-2 focus:outline-none"
+                    value={postDesc}
+                    onChange={(e) => setPostDesc(e.target.value)}
+                  />
+                </div>
+              </form>
+            </div>
+            <div className="flex gap-2 border-t border-gray-400 p-4">
+              <button
+                type="submit"
+                form="post-form"
+                className="border border-gray-300 shadow-lg bg-gray-100 text-gray-500 rounded py-2 px-5 hover:bg-blue-500 hover:text-white transition-colors ease-linear"
+              >
+                Post
+              </button>
+              <button
+                onClick={() => setModalActive(false)}
+                className="border border-gray-300 shadow-lg bg-gray-100 text-gray-500 rounded py-2 px-5 hover:bg-red-500 hover:text-white transition-colors ease-linear"
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>
