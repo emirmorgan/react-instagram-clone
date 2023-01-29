@@ -35,13 +35,20 @@ const LoginForm = () => {
         <Form className="flex flex-col items-center">
           <div className="flex flex-col mt-6 w-full">
             <Input
+              data-testid="username"
               label="Phone number, username, or email"
               name="email"
               type="text"
             />
-            <Input label="Password" name="password" type="password" />
+            <Input
+              data-testid="password"
+              label="Password"
+              name="password"
+              type="password"
+            />
             <div className="mx-10 my-2">
               <button
+                data-testid="loginButton"
                 type="submit"
                 disabled={
                   !(
